@@ -20,6 +20,10 @@ const AddToList: React.FC<Props> = ({ people, setPeople }) => {
 
   const handleClick = (): void => {
     if (!input.name || !input.age) {
+      alert("Name and age fields are required");
+      return;
+    } else if (parseInt(input.age) < 0) {
+      alert("Age can't be lower than zero");
       return;
     }
 
@@ -51,6 +55,7 @@ const AddToList: React.FC<Props> = ({ people, setPeople }) => {
   return (
     <div className="AddToList">
       <input
+        required
         type="text"
         placeholder="Name"
         value={input.name}
@@ -67,6 +72,8 @@ const AddToList: React.FC<Props> = ({ people, setPeople }) => {
         name="img"
       />
       <input
+        required
+        min="0"
         type="number"
         placeholder="Age"
         value={input.age}
