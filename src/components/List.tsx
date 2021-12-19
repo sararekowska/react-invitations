@@ -1,7 +1,7 @@
 import React from "react";
-import { IState as IProps } from "../App";
+import { IState as IProps } from "../common/types";
 
-const List: React.FC<IProps> = ({ people }) => {
+const List: React.FC<IProps> = ({ people, setPeople }) => {
   const renderList = (): JSX.Element[] => {
     return people.map((person) => {
       return (
@@ -12,6 +12,12 @@ const List: React.FC<IProps> = ({ people }) => {
           </div>
           <p>{person.age} years old</p>
           <p className="List-note">{person.note}</p>
+          <button
+            className="AddToList-btn"
+            onClick={() => setPeople(people.filter((p) => p.id !== person.id))}
+          >
+            X
+          </button>
         </li>
       );
     });

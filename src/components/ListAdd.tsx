@@ -1,12 +1,7 @@
 import React, { useState } from "react";
-import { IState as Props } from "../App";
+import { IState as Props } from "../common/types";
 
-interface IProps {
-  people: Props["people"];
-  setPeople: React.Dispatch<React.SetStateAction<Props["people"]>>;
-}
-
-const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
+const AddToList: React.FC<Props> = ({ people, setPeople }) => {
   const [input, setInput] = useState({
     name: "",
     age: "",
@@ -28,9 +23,16 @@ const AddToList: React.FC<IProps> = ({ people, setPeople }) => {
       return;
     }
 
+    const highestId = Math.max(
+      ...people.map((person) => {
+        return person.id;
+      })
+    );
+
     setPeople([
       ...people,
       {
+        id: highestId + 1,
         name: input.name,
         age: parseInt(input.age),
         note: input.note,
